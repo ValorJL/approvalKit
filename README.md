@@ -6,11 +6,11 @@ PowerShell
 
 重要依赖：
 vue: 3.5.13
-eslint:9.20.1
-prettier:^3.5.0
-typescript:~5.7.2
-vite:^6.1.0
-vitest:^3.0.5
+eslint: 9.20.1
+prettier: ^3.5.0
+typescript: ~5.7.2
+vite: ^6.1.0
+vitest: ^3.0.5
 
 因为不同系统/开发工具/依赖版本可能有较大的配置过程差异，特此标注。
 
@@ -61,6 +61,20 @@ npm install -D prettier eslint-config-prettier eslint-plugin-prettier
 测试ESLint是否正常
 运行npm run lint
 如果没有错误或只是警告，说明 ESLint 配置成功。
+
+**Window系统很容易遇到一个问题:警告：LF will be replaced by CRLF Window**
+ `LF`是Unix / Linux / macOS 的换行符，而Window系统默认回车使用 CRLF(`\r\n`) 而不是LF(`\n`)，但是Prettier想要会把CRLF认成错误。
+
+我选择的解决方案是强制使用lf。
+在.prettierrc文件添加"endOfLine": "lf"，
+然后格式化所有文件：
+```
+npx prettier --write .
+```
+这样就修好了。
+
+修好后部署到git仓库又会重新遇到一次。因为 Git 发现你的项目文件使用的是 `LF`，而你的 Windows 系统默认使用 `CRLF`。
+你可以运行以下命令，让 Git 保持 `LF`，避免自动转换：git config --global core.autocrlf false
 
 **确保 VSCode 使用 ESLint 和 Prettier**
 1. **安装 Prettier 扩展**。

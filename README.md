@@ -1,15 +1,15 @@
 # 开发工具与依赖版本
 开发工具：
-Visual studio Code
-Window系统
+Visual studio Code，
+Window系统，
 PowerShell
 
 重要依赖：
-vue: 3.5.13
-eslint: 9.20.1
-prettier: ^3.5.0
-typescript: ~5.7.2
-vite: ^6.1.0
+vue: 3.5.13，
+eslint: 9.20.1，
+prettier: ^3.5.0，
+typescript: ~5.7.2，
+vite: ^6.1.0，
 vitest: ^3.0.5
 
 因为不同系统/开发工具/依赖版本可能有较大的配置过程差异，特此标注。

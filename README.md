@@ -1,4 +1,21 @@
+# 开发工具与依赖版本
+开发工具：
+Visual studio Code
+Window系统
+PowerShell
 
+重要依赖：
+vue: 3.5.13
+eslint:9.20.1
+prettier:^3.5.0
+typescript:~5.7.2
+vite:^6.1.0
+vitest:^3.0.5
+
+因为不同系统/开发工具/依赖版本可能有较大的配置过程差异，特此标注。
+
+
+# 初始化
 ## 1. 初始化 Vue3 + TypeScript 项目
 首先为了使用Vue需要下载node.js。
 
@@ -131,8 +148,11 @@ dist/
 这是为了不上传node_modules。
 node_modules包含所有npm依赖，上传它会让Git仓库变得臃肿。而package.js和package-lock.json已经记录你需要哪些依赖了。
 
+接下来也是常规操作
+```
 git remote add origin https://github.com/你的用户名/vue-approval-components.git
 git branch -M main
 git push -u origin main
+```
 
 至此初始化完成。

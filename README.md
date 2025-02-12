@@ -39,7 +39,7 @@ npx eslint --init
 ### 安装Prettier
 npm install -D prettier eslint-config-prettier eslint-plugin-prettier
 
-下一步是修改 `eslintrc.json`（ ESLint v9之前的版本）或`eslint.config.js`（ESLint v9之后的版本） 让 ESLint 和 Prettier 兼容（请见文件`eslintrc.json`）。如果你的是`eslintrc.json`，那么语法是不同的，配置方法和我不一样。
+下一步是修改 `eslintrc.json`（ ESLint v9之前的版本）或`eslint.config.js`（ESLint v9之后的版本） 让 ESLint 和 Prettier 兼容（请见文件`eslint.config.js`）。如果你的是`eslintrc.json`，那么语法是不同的，配置方法和我不一样。
 
 测试ESLint是否正常
 运行npm run lint

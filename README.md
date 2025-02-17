@@ -1,3 +1,12 @@
+# 目前进度
+项目初始化（Vue3+Vite+ESLint+Prettier+Vitest）√
+组件1-3：审批按钮（Approve、Reject、Pending）【在这一步】
+组件4：审批进度条（ApprovalSteps）
+组件5：审批反馈框（FeedbackBox）
+组件6：审批状态标签（StatusTag）
+组件7：按钮组（ButtonGroup）
+组件8：审批操作组合（ApprovalActions）
+
 # 开发工具与依赖版本
 开发工具：
 Visual studio Code，

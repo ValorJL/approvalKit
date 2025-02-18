@@ -3,9 +3,9 @@
 
 组件1：审批按钮（Approve、Reject、Pending）√
 
-组件2：审批进度条（ApprovalSteps）【在这一步】
+组件2：审批进度条（ApprovalSteps）√
 
-组件3：审批反馈框（FeedbackBox）
+组件3：审批反馈框（FeedbackBox）【在这一步】
 
 组件4：审批状态标签（StatusTag）
 
@@ -323,7 +323,6 @@ if (props.status === 'completed' ) return 'green'
 原因：
 if (props.status === 'completed' || 'rejected') return 'green';
 这个语句实际上等价于if ( (props.status === 'completed') || 'rejected' ) return 'green';
-
 所以无论 props.status 是什么，'rejected' 始终是 truthy，所以 if 语句永远返回 true，导致 return 'green'; 总是执行。
 
 正确写法：

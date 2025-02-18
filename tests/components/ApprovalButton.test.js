@@ -1,38 +1,37 @@
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ApprovalButton from '../../src/components/ApprovalButton.vue'
-// 确保当 type 是 'approve'、'reject' 或 'pending' 时，按钮的默认文本是正确的。
-test('renders default labels correctly', () => {
-  const wrapperApprove = mount(ApprovalButton, { props: { type: 'approve' } })
-  expect(wrapperApprove.text()).toBe('通过')
 
-  const wrapperReject = mount(ApprovalButton, { props: { type: 'reject' } })
-  expect(wrapperReject.text()).toBe('拒绝')
+describe('ApprovalButton.vue', () => {
+  it('默认label文本正确', () => {
+    const wrapperApprove = mount(ApprovalButton, { props: { type: 'approve' } })
+    expect(wrapperApprove.text()).toBe('通过')
 
-  const wrapperPending = mount(ApprovalButton, { props: { type: 'pending' } })
-  expect(wrapperPending.text()).toBe('待定')
-})
+    const wrapperReject = mount(ApprovalButton, { props: { type: 'reject' } })
+    expect(wrapperReject.text()).toBe('拒绝')
 
-// 确保用户可以通过 label prop 自定义按钮的文本。
-test('accepts custom labels', () => {
-  const wrapper = mount(ApprovalButton, { props: { type: 'approve', label: '同意' } })
-  expect(wrapper.text()).toBe('同意')
-})
+    const wrapperPending = mount(ApprovalButton, { props: { type: 'onhold' } })
+    expect(wrapperPending.text()).toBe('待定')
+  })
 
-// 确保按钮的 type 决定了正确的样式。
-test('applies correct classes based on type', () => {
-  const wrapperApprove = mount(ApprovalButton, { props: { type: 'approve' } })
-  expect(wrapperApprove.classes()).toContain('approve-button')
+  it('允许自定义label文本', () => {
+    const wrapper = mount(ApprovalButton, { props: { type: 'approve', label: '同意' } })
+    expect(wrapper.text()).toBe('同意')
+  })
 
-  const wrapperReject = mount(ApprovalButton, { props: { type: 'reject' } })
-  expect(wrapperReject.classes()).toContain('reject-button')
+  it('动态绑定类名正确', () => {
+    const types = ['approve', 'reject', 'pending']
+    const expectedClasses = ['approve-button', 'reject-button', 'pending-button']
 
-  const wrapperPending = mount(ApprovalButton, { props: { type: 'pending' } })
-  expect(wrapperPending.classes()).toContain('pending-button')
-})
+    types.forEach((type, index) => {
+      const wrapper = mount(ApprovalButton, { props: { type } })
+      expect(wrapper.classes()).toContain(expectedClasses[index])
+    })
+  })
 
-// 当用户点击按钮时，组件应该触发 click 事件。
-test('emits click event when clicked', async () => {
-  const wrapper = mount(ApprovalButton, { props: { type: 'approve' } })
-  await wrapper.trigger('click')
-  expect(wrapper.emitted()).toHaveProperty('click')
+  it('点击事件', async () => {
+    const wrapper = mount(ApprovalButton, { props: { type: 'approve' } })
+    await wrapper.trigger('click')
+    expect(wrapper.emitted()).toHaveProperty('click')
+  })
 })

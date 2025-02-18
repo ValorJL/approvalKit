@@ -4,32 +4,30 @@
   </button>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, defineProps } from 'vue'
+import type { ApprovalButtonType, ButtonSize } from '@/types'
 
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'approve', // 默认是“通过”按钮
-    validator: (value) => ['approve', 'reject', 'pending'].includes(value),
-  },
-  label: String, // 允许用户自定义文本
-})
+const props = defineProps<{
+  type?: ApprovalButtonType
+  label?: string
+  size?: ButtonSize
+}>()
 
+// 通过 computed 计算 buttonClass，根据 type 生成不同的 CSS 类，动态改变按钮样式。
 const buttonClass = computed(() => ({
-  'approve-button': props.type === 'approve',
-  'reject-button': props.type === 'reject',
-  'pending-button': props.type === 'pending',
+  [`${props.type}-button`]: props.type,
+  [`button-${props.size}`]: props.size,
 }))
 
-const defaultLabels = {
+const defaultLabels: Record<ApprovalButtonType, string> = {
   approve: '通过',
   reject: '拒绝',
-  pending: '待定',
+  onhold: '待定',
 }
 
-// 如果用户没有提供 label，就使用默认文本
-const label = computed(() => props.label || defaultLabels[props.type])
+// 可以通过 label 传入自定义文本，如果用户没有提供 label，就使用默认文本
+const label = computed(() => props.label || defaultLabels[props.type || 'approve'])
 </script>
 
 <style scoped>
@@ -38,7 +36,6 @@ const label = computed(() => props.label || defaultLabels[props.type])
   color: #135200;
   border: 2px solid;
   border-color: #389e0d;
-  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -54,7 +51,6 @@ const label = computed(() => props.label || defaultLabels[props.type])
   color: #820014;
   border: 2px solid;
   border-color: #cf1322;
-  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -65,19 +61,31 @@ const label = computed(() => props.label || defaultLabels[props.type])
   background-color: #ff4d4f;
 }
 
-.pending-button {
+.onhold-button {
   background-color: #f0f0f0;
   color: #262626;
   border: 2px solid;
   border-color: #8c8c8c;
-  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
 }
-.pending-button:hover {
+.onhold-button:hover {
   background-color: #d9d9d9;
 }
-.pending-button:active {
+.onhold-button:active {
   background-color: #bfbfbf;
+}
+
+.button-small {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.button-medium {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+.button-large {
+  padding: 12px 24px;
+  font-size: 16px;
 }
 </style>

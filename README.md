@@ -315,6 +315,30 @@ ApprovalButton.test.js也相应更新了。
 ![1739917513167](https://github.com/user-attachments/assets/09a9d29f-d95e-4c8b-bfce-313a4da8d9d3)
 
 
+遇到错误：
+if (props.status === 'completed' ) return 'green'
+    {if (props.status === 'rejected') return 'green' ...}
+不能改成if (props.status === 'completed' || 'rejected') return 'green'
+
+原因：
+if (props.status === 'completed' || 'rejected') return 'green';
+这个语句实际上等价于if ( (props.status === 'completed') || 'rejected' ) return 'green';
+
+所以无论 props.status 是什么，'rejected' 始终是 truthy，所以 if 语句永远返回 true，导致 return 'green'; 总是执行。
+
+正确写法：
+if (props.status === 'completed' || props.status === 'rejected') return 'green';
+
+
+遇到错误：
+有时因为网络问题不能及时push到github。这可能导致本地和远程不同步的问题，就是本地的git代码显示，本地代码已经和最新提交保持一致，但是在github上看不到最新提交的代码。
+此时需要重新手动推送本地最新提交。 尝试git push origin main --force
+然而，--force 会覆盖远程代码，可能会导致 别人提交的代码被覆盖。
+如果必须使用 --force，建议改用 --force-with-lease，这样 不会覆盖别人新推的代码：git push origin main --force-with-lease。
+
+
+
+
 
 
 

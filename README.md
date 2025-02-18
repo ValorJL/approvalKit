@@ -1,9 +1,9 @@
 # 目前进度
 项目初始化（Vue3+Vite+ESLint+Prettier+Vitest）√
 
-组件1-3：审批按钮（Approve、Reject、Pending）【在这一步】
+组件1-3：审批按钮（Approve、Reject、Pending）√
 
-组件4：审批进度条（ApprovalSteps）
+组件4：审批进度条（ApprovalSteps）【在这一步】
 
 组件5：审批反馈框（FeedbackBox）
 
@@ -195,24 +195,37 @@ git push -u origin main
 （如果后期还有时间，考虑针对色弱多做几套配色方案。）
 
 通过按钮
+
 主色：green-4 95de64
+
 悬停：green-5 73d13d
+
 点击：green-6 52c41a
+
 边框：green-7 389e0d
+
 文字：green-9 135200
 
 拒绝按钮
 主色：red-4 ffa39e
+
 悬停：red-5 ff7875
+
 点击：red-6 ff4d4f
+
 边框：red-7 cf1322
+
 文字：red-9 820014
 
 待定按钮
 主色：gray-4 f0f0f0
+
 悬停：gray-5 d9d9d9
+
 点击：gray-6 bfbfbf
+
 边框：gray-7 8c8c8c
+
 文字：gray-10 262626
 
 ### 添加到App.vue看看效果
@@ -250,9 +263,9 @@ npm run test
 按钮的测试有四条：
 
 1. 确保当 type 是 'approve'、'reject' 或 'pending' 时，按钮的默认文本是正确的。
-2. 
-3. 确保用户可以通过 label prop 自定义按钮的文本。
-4. 
-5. 确保按钮的 type 决定了正确的样式。
-6. 
-7. 当用户点击按钮时，组件应该触发 click 事件。
+   
+2. 确保用户可以通过 label prop 自定义按钮的文本。
+   
+3. 确保按钮的 type 决定了正确的样式。
+  
+4. 当用户点击按钮时，组件应该触发 click 事件。

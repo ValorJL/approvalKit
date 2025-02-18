@@ -311,6 +311,8 @@ const label = computed(() => props.label || defaultLabels[props.type || 'approve
 ApprovalButton.test.js也相应更新了。
 
 
+## 审批进度条
+![1739917513167](https://github.com/user-attachments/assets/09a9d29f-d95e-4c8b-bfce-313a4da8d9d3)
 
 
 

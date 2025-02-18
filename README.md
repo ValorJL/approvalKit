@@ -186,3 +186,73 @@ git push -u origin main
 ```
 
 至此初始化完成。
+
+# 开发组件
+## 审批按钮
+### 开发ApproveButton.vue
+
+颜色参考Ant Design的设计规范，并都遵循悬停时按钮颜色变深等常见规范。通过按钮是绿色，拒绝按钮是红色，待定按钮是灰色。由于个人偏好，整体颜色选择比常见UI选择更浅。
+（如果后期还有时间，考虑针对色弱多做几套配色方案。）
+
+通过按钮
+主色：green-4 95de64
+悬停：green-5 73d13d
+点击：green-6 52c41a
+边框：green-7 389e0d
+文字：green-9 135200
+
+拒绝按钮
+主色：red-4 ffa39e
+悬停：red-5 ff7875
+点击：red-6 ff4d4f
+边框：red-7 cf1322
+文字：red-9 820014
+
+待定按钮
+主色：gray-4 f0f0f0
+悬停：gray-5 d9d9d9
+点击：gray-6 bfbfbf
+边框：gray-7 8c8c8c
+文字：gray-10 262626
+
+### 添加到App.vue看看效果
+
+遇到错误：Could not find a declaration file for module './components/ApprovalButton.vue'. 'c:/approval-kit/approvalKit/src/components/ApprovalButton.vue' implicitly has an 'any' type.ts-plugin(7016)
+这通常是由于 TypeScript 需要额外的配置来正确解析 Vue 单文件组件。
+解决方案：
+在 `src` 目录下创建一个 `shims-vue.d.ts` 文件，并添加以下内容：
+```
+declare module '*.vue' {
+  import { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+```
+这个文件告诉 TypeScript 所有 `.vue` 文件都可以被正确解析为 Vue 组件。
+然后快捷键ctrl+shift+P，输入reload Window快速重启VScode。问题就解决了。
+
+### 编写 Vitest 单元测试
+
+具体代码见tests/components/ApprovalButton.test.js
+
+启动测试：
+npm run test
+
+这里遇到Error: Failed to parse source for import analysis because the content contains invalid JS syntax. Install @vitejs/plugin-vue to handle .vue files. 这是因为文件夹里有vitest.config.ts也有vite.config.ts。
+
+如果同时存在vitest.config.ts和vite.config.ts，那么 Vitest只会读取vitest.config.ts，而Vite只会读取vite.config.ts。
+
+如果 Vue 插件 (@vitejs/plugin-vue) 只在vite.config.ts里，但 vitest.config.ts里 没有，那么 Vitest运行测试时不会解析.vue组件，导致Failed to parse source for import analysis 错误。
+
+解决方法：合并两个文件。直接在 vite.config.ts 里添加 Vitest 配置，然后删除 vitest.config.ts，只保留 vite.config.ts。
+
+
+按钮的测试有四条：
+
+1. 确保当 type 是 'approve'、'reject' 或 'pending' 时，按钮的默认文本是正确的。
+2. 
+3. 确保用户可以通过 label prop 自定义按钮的文本。
+4. 
+5. 确保按钮的 type 决定了正确的样式。
+6. 
+7. 当用户点击按钮时，组件应该触发 click 事件。

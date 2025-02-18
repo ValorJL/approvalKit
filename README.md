@@ -5,9 +5,9 @@
 
 组件2：审批进度条（ApprovalSteps）√
 
-组件3：审批反馈框（FeedbackBox）【在这一步】
+组件3：审批状态标签（StatusTag）【在这一步】
 
-组件4：审批状态标签（StatusTag）
+组件4：审批反馈框（FeedbackBox）
 
 组件5：按钮组（ButtonGroup）
 

@@ -262,12 +262,59 @@ npm run test
 解决方法：合并两个文件。直接在 vite.config.ts 里添加 Vitest 配置，然后删除 vitest.config.ts，只保留 vite.config.ts。
 
 
-按钮的测试有四条：
+### 添加types.ts
+在这一步时，觉得待处理用pending这个单词、审批结果为待定时用onhold这个单词更合适，所以把button里的pending button改名为onhold button了。
 
-1. 确保当 type 是 'approve'、'reject' 或 'pending' 时，按钮的默认文本是正确的。
-   
-2. 确保用户可以通过 label prop 自定义按钮的文本。
-   
-3. 确保按钮的 type 决定了正确的样式。
+看了一些通用组件库的视频教程，决定先添加types.ts，它可以为开发者输入组件类型时提供编辑器的自动提示，以避免拼写错误和无效值。
+```
+export type ApprovalButtonType = 'approve' | 'reject' | 'onhold'
+
+export type ButtonSize = 'small' | 'medium' | 'large'
+
+export interface ButtonProps {
+  type: ApprovalButtonType
+  label?: string
+  size?: ButtonSize
+  disabled?: boolean
+
+}
+```
+
+将types.ts引用到ApprovalButton.vue，并且动态绑定。
+```
+<script setup lang="ts">
+import { computed, defineProps } from 'vue'
+import type { ApprovalButtonType, ButtonSize } from '@/types'
   
-4. 当用户点击按钮时，组件应该触发 click 事件。
+const props = defineProps<{
+  type?: ApprovalButtonType
+  label?: string
+  size?: ButtonSize
+
+}>()
+```
+
+动态绑定1：通过 computed 计算 buttonClass，根据 type 生成不同的 CSS 类，动态改变按钮样式。
+```
+const buttonClass = computed(() => ({
+  [`${props.type}-button`]: props.type,
+  [`button-${props.size}`]: props.size,
+}))
+```
+
+动态绑定2：可以通过 label 传入自定义文本，如果用户没有提供 label，就使用默认文本
+```
+const label = computed(() => props.label || defaultLabels[props.type || 'approve'])
+</script>
+```
+
+ApprovalButton.test.js也相应更新了。
+
+
+
+
+
+
+
+
+
